@@ -1,0 +1,53 @@
+# First Stage
+FROM node:alpine as frontend
+COPY package.json package-lock.json /app/
+RUN cd /app \
+    && npm install
+COPY webpack.mix.js /app/
+COPY resources/ /app/resources/
+COPY public/ /app/public/
+
+RUN cd /app \
+    && npm run production
+
+# Second Stage
+FROM composer:2 as composer
+COPY database/ /app/database/
+COPY composer.json composer.lock /app/
+RUN cd /app \
+    && composer install \
+        --optimize-autoloader \
+        --ignore-platform-reqs \
+        --prefer-dist \
+        --no-interaction \
+        --no-plugins \
+        --no-scripts
+        # --no-dev
+
+# Third Stage
+FROM php:7.4-apache-buster
+RUN curl -sSL https://git.io/get-mo -o mo && chmod +x mo && mv mo /usr/local/bin/
+
+ARG LARAVEL_PATH=/var/www/laravel
+WORKDIR ${LARAVEL_PATH}
+
+COPY . ${LARAVEL_PATH}
+
+COPY --from=composer /app/vendor/ ${LARAVEL_PATH}/vendor/
+
+COPY --from=frontend /app/resources/ ${LARAVEL_PATH}/resources/
+COPY --from=frontend /app/public/ ${LARAVEL_PATH}/public/
+COPY --from=frontend /app/mix-manifest.json ${LARAVEL_PATH}/mix-manifest.json
+
+RUN rm -f ${LARAVEL_PATH}/bootstrap/cache/config.php
+
+RUN cd ${LARAVEL_PATH} \
+    # && php artisan package:discover \
+    && chown www-data:www-data bootstrap/cache \
+    && chown -R www-data:www-data storage/ \
+    && chown -R www-data:www-data public/
+
+RUN rm /etc/apache2/sites-enabled/*
+COPY config/apache2 /etc/apache2/
+RUN a2enmod rewrite headers \
+    && a2ensite laravel
