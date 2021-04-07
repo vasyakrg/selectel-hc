@@ -3,9 +3,17 @@
 - приложение полезно тем, у кого нет прямого доступа в ЛК Selectel, а есть только [токен](https://my.selectel.ru/profile/apikeys)
 - позволяет получать доступ к службе поддержки, создавать и управлять запросами
 
-![](app/public/dist/img/screen1.png | width=100)
-![](app/public/dist/img/screen2.png | width=100)
-![](app/public/dist/img/screen3.png | width=100)
+Стартовая
+
+![](app/public/dist/img/screen1.png)
+
+Создание запроса
+
+![](app/public/dist/img/screen2.png)
+
+Просмотр запроса
+
+![](app/public/dist/img/screen3.png)
 
 
 ## Запуск
