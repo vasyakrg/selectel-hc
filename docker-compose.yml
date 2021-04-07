@@ -2,7 +2,7 @@ version: '3.7'
 services:
   app:
     image: vasyakrg/selectel-hc
-    container_name: php_php
+    container_name: selectel-hc
     environment:
       XDEBUG_CONFIG: remote_host=127.0.0.1
       SELECTEL_API_TOKEN: ${SELECTEL_API_TOKEN}
