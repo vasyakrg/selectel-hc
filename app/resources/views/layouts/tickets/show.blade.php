@@ -2,6 +2,7 @@
 <div class="card">
     {{ csrf_field() }}
     <div class="card-header">
+    @if (! isset($ticket))
         <h3 class="card-title">Детали заявки: {{$ticket['summary']}}</h3>
     </div>
     <div class="card-body">
@@ -106,6 +107,12 @@
             </div>
         </div>
     </div>
+    @else
+        <p style="color: red">
+            Неверный <b>токен</b> или не могу подключиться к {{ config('services.api_settings.api_url') }}
+        </p>
+    @endif
+
     <!-- /.card-body -->
 </div>
 <!-- /.card -->
