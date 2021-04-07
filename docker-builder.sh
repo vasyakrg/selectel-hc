@@ -2,7 +2,9 @@
 
 cd app
 
-./version-hook VERSION
+./version-hook.sh VERSION
+
+echo "VER: $(cat VERSION)"
 
 docker build -f Dockerfile-base -t vasyakrg/selectel-hc:base .
 
