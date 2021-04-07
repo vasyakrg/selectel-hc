@@ -46,7 +46,7 @@
         </div>
     </div>
 </div>
-@include('layouts.tickets.create')
+
 <script>
     $(document).ready(function () {
         let table = $('#tickets-table').DataTable({

@@ -49,6 +49,7 @@
 @include('layouts.template.scripts')
     <div class="wrapper">
         @include('layouts.template.navbar')
+        @include('layouts.tickets.create')
     <!-- Main content -->
         <section class="content">
             <div class="container-fluid">

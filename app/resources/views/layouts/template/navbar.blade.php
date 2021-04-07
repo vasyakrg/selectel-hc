@@ -4,7 +4,7 @@
         <a href="/">
             <img src="{{ asset('dist/img/selectel-icon.jpg') }}" alt="Selectel Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">Selectel Help Center</span>
+            <span class="brand-text font-weight-light"><b>Selectel</b> Help Center</span>
         </a>
 
         <div class="collapse navbar-collapse order-3" id="navbarCollapse">

@@ -2,7 +2,7 @@
 <div class="card">
     {{ csrf_field() }}
     <div class="card-header">
-    @if (! isset($ticket))
+    @if (isset($ticket['summary']))
         <h3 class="card-title">Детали заявки: {{$ticket['summary']}}</h3>
     </div>
     <div class="card-body">
@@ -45,32 +45,34 @@
                 <div class="row">
                     <div class="col-12">
                         <h4>Комменты:</h4>
-                        @foreach ($ticket['comments'] as $comment)
-                        <div class="post">
-                            <div class="user-block">
-                                @if ($comment['is_client_author'])
-                                <img class="img-circle img-bordered-sm" src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="user image">
-                                <span class="username">
-                                    Мой комментарий
-                                </span>
-                                @else
-                                <img class="img-circle img-bordered-sm" src="{{ asset('dist/img/selectel-icon.jpg') }}" alt="user image">
-                                <span class="username">
-                                    Служба поддержки
-                                </span>
-                                @endif
-                                <span class="description">{{gmdate("Y-m-d H:i:s", strtotime($comment['sent_at']))}} UTC</span>
-                            </div>
-                            <!-- /.user-block -->
-                            <p>
-                                {{ $comment['body'] }}
-                            </p>
+                        @if (isset($ticket['comments']))
+                            @foreach ($ticket['comments'] as $comment)
+                            <div class="post">
+                                <div class="user-block">
+                                    @if ($comment['is_client_author'])
+                                    <img class="img-circle img-bordered-sm" src="{{ asset('dist/img/user1-128x128.jpg') }}" alt="user image">
+                                    <span class="username">
+                                        Мой комментарий
+                                    </span>
+                                    @else
+                                    <img class="img-circle img-bordered-sm" src="{{ asset('dist/img/selectel-icon.jpg') }}" alt="user image">
+                                    <span class="username">
+                                        Служба поддержки
+                                    </span>
+                                    @endif
+                                    <span class="description">{{gmdate("Y-m-d H:i:s", strtotime($comment['sent_at']))}} UTC</span>
+                                </div>
+                                <!-- /.user-block -->
+                                <p>
+                                    {{ $comment['body'] }}
+                                </p>
 
-                            <p>
-                                <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> File..</a>
-                            </p>
-                        </div>
-                        @endforeach
+                                <p>
+                                    <a href="#" class="link-black text-sm"><i class="fas fa-link mr-1"></i> File..</a>
+                                </p>
+                            </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 @if (! $ticket['is_closed'])
