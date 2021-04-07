@@ -15,6 +15,10 @@
 
 ![](app/public/dist/img/screen3.png)
 
+Просмотр запроса
+
+![](app/public/dist/img/screen4.png)
+
 
 ## Запуск
 - для начала надо запросить токен у овнера (который имеет полный доступ в [кабинет](https://my.selectel.ru/profile/apikeys))
